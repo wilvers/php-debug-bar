@@ -5,14 +5,8 @@
 * Patrice Wilvers <patrice.wilvers@deboeck.com> : Développeur
 
 # TODO
-* Automatiser l'export des "data"
-* Tout intégrer en non phar (cf libs, ...)
 
 # Installation
-
-## VirtualHost
-
-
 
 # Déploiement
 
@@ -44,15 +38,11 @@ PS : outil : MarkdownPad2 par exemple
     * Il faut donc effectuer des merge-request pour "pousser" une branche vers "master"
     * On reprend le projet en local (pull) pour vérifier que tout est bon
 * Jenkins
-    * TOut d'abord un ci (vérifier qu'il soit bien vert) http://10.10.10.137:8080/view/dbdig-ci/job/dbdig-dms/
-    * Et si tout est ok un deploy un choississant l'environnement (vérifier le ci avant) http://10.10.10.137:8080/view/dbdig-deploy/job/dbdig-dms.deploy/
-
 
 # Utile
 
 * Comment développement [doc/dev.md](doc/dev.md)
 
-* Déploiement srv-web-edu [https://git.larciergroup.com/dbdig/srv-web-edu/blob/master/projects/dms/readme.md](https://git.larciergroup.com/dbdig/srv-web-edu/blob/master/projects/dms/readme.md "Readme")
-
+* Déploiement srv-web-edu
 
 
