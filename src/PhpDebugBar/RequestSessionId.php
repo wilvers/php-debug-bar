@@ -3,7 +3,7 @@
 namespace DebugBar;
 
 /**
- * Description of RequestIdGenerator
+ * Description of RequestSessionId
  *
  * @author pwilv
  */
