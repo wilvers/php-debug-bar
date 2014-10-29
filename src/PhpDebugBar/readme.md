@@ -4,11 +4,11 @@
 
 ## instance de la debugbar (bar vide)  ou de la bar standard (contient déja des collector)
  
- $debugbar = new StandardDebugBar();
- //$debugbar = new DebugBar();
+     $debugbar = new StandardDebugBar();
+     $debugbar = new DebugBar();
 
-//création de l'id de request (ici c'est l'id de session)
-$debugbar->setRequestIdGenerator(new \DebugBar\RequestSessionId());
+    //création de l'id de request (ici c'est l'id de session)
+    $debugbar->setRequestIdGenerator(new \DebugBar\RequestSessionId());
 
 //création d'un file storage
 
