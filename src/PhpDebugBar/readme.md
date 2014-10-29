@@ -1,7 +1,4 @@
-# TODO
-
 # Utilisation
-
 ## instance de la debugbar (bar vide)  
       $debugbar = new StandardDebugBar();
      
