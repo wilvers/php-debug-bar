@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="php_debug_bar" default="help" basedir=".">
+
+    <!--  all properties are in build.properties -->
+    <property file="project.properties"/>
+    <property name="base.path" value="${env.PWD}"/>
+    <echo message="${conf.dbit.dir}"/>
+
+    <target name="help" description="Display help">
+        <exec command="${phing.bin} -l" passthru="true"/>
+        <exec executable="env" passthru="true"/>
+    </target>
+
+    <target name="infos" description="Display infos">
+        <echo msg="env : ${env}"/>
+    </target>
+
+    <target name="composer">
+        <composer command="install" composer="${composer.bin}"/>
+    </target>
+
+    <!--
+        Préparation de la structure pour le build
+        Le but est ici de créer le structure pour la compil
+        Ce répertoire ne sera pas dans le repo
+    -->
+    <target name="prepare-build-dirs">
+        <delete dir="${project.builddir}/docs"/>
+        <delete dir="${project.builddir}/logs"/>
+        <delete dir="${project.builddir}/coverage"/>
+        <delete dir="${project.builddir}/code-browser"/>
+        <delete dir="${project.builddir}/pdepend"/>
+        <delete dir="${project.builddir}/testresults"/>
+        <mkdir dir="${project.builddir}/docs"/>
+        <mkdir dir="${project.builddir}/logs"/>
+        <mkdir dir="${project.builddir}/testresults"/>
+        <mkdir dir="${project.builddir}/code-browser"/>
+        <mkdir dir="${project.builddir}/coverage"/>
+        <mkdir dir="${project.builddir}/pdepend"/>
+    </target>
+
+    <!--
+        Outil de parcours des sources
+    -->
+    <target name="phpcb" description="Outil de parcours des sources">
+        <exec executable="phpcb">
+            <arg value="--log"/>
+            <arg path="${project.builddir}/logs"/>
+            <arg value="--source"/>
+            <arg path="${project.source}"/>
+            <arg value="--output"/>
+            <arg path="${project.builddir}/code-browser"/>
+        </exec>
+    </target>
+
+    <!--
+        Vérification des sources
+    -->
+    <target name="phpcs" description="Vérification des sources, rapport lisible">
+        <exec executable="${phpcs.bin}" passthru="true">
+            <arg value="--standard=PSR2"/>
+            <arg path="${phpcs.basedir}"/>
+        </exec>
+    </target>
+
+    <target name="phpcs-ci" description="Vérification des sources pour rapport">
+        <exec executable="${phpcs.bin}">
+            <arg value="--report=checkstyle"/>
+            <arg value="--report-file=${phpcs.reportpath}"/>
+            <arg value="--standard=PSR2"/>
+            <arg path="${phpcs.basedir}"/>
+        </exec>
+    </target>
+
+    <!--
+        Statistiques sur le code
+    -->
+    <target name="phploc" description="Statistiques sur le code">
+        <exec executable="phploc">
+            <arg value="--log-csv"/>
+            <arg value="${project.builddir}/logs/phploc.csv"/>
+            <arg path="${project.basedir}/src"/>
+        </exec>
+    </target>
+
+    <!--
+        La documentation
+    -->
+    <target name="phpdoc" description="Génération de la documentation">
+        <phpdoc2 title="${project.name} Documentation"
+                 destdir="${project.builddir}/docs"
+                 template="responsive">
+            <fileset dir="./src">
+                <include name="**/*.php"/>
+            </fileset>
+        </phpdoc2>
+    </target>
+
+    <!--
+        Dépendances
+    -->
+    <target name="pdepend">
+        <exec executable="pdepend">
+            <arg value="--jdepend-xml=${project.builddir}/logs/jdepend.xml"/>
+            <arg value="--jdepend-chart=${project.builddir}/pdepend/dependencies.svg"/>
+            <arg value="--overview-pyramid=${project.builddir}/pdepend/overview-pyramid.svg"/>
+            <arg path="${project.basedir}/src"/>
+        </exec>
+    </target>
+
+    <!--
+       Qualité des sources
+    -->
+    <target name="phpmd">
+        <exec executable="phpmd">
+            <arg path="${project.basedir}/src"/>
+            <arg value="xml"/>
+            <arg value="${project.basedir}/phpmd.xml"/>
+            <arg value="--reportfile"/>
+            <arg value="${project.builddir}/logs/pmd.xml"/>
+        </exec>
+    </target>
+
+    <!--
+       Duplication de code
+    -->
+    <target name="phpcpd">
+        <exec executable="phpcpd">
+            <arg value="--log-pmd"/>
+            <arg value="${project.builddir}/logs/pmd-cpd.xml"/>
+            <arg path="${project.basedir}/src"/>
+        </exec>
+    </target>
+
+    <!--
+       Analyse de code
+    -->
+    <target name="lint">
+        <phplint errorproperty="lint.error" haltonfailure="true">
+            <fileset dir="${project.basedir}/src">
+                <include name="**/*.php"/>
+            </fileset>
+            <fileset dir="${project.basedir}/tests">
+                <include name="**/*.php"/>
+            </fileset>
+        </phplint>
+    </target>
+
+    <!--
+        Tests unitaires
+    -->
+    <target name="phpunit">
+        <exec executable="${phpunit.bin}" dir="${phpunit.basedir}" checkreturn="true" passthru="true"/>
+    </target>
+
+    <target name="prepare-deploy">
+        <mkdir dir="${project.basedir}/dist" mode="0775"/>
+
+        <composer command="update" composer="${composer.bin}">
+            <arg value="--no-dev"/>
+            <arg value="-o"/>
+        </composer>
+
+        <exec command="git"
+              outputProperty="commit">
+            <arg value="rev-parse"/>
+            <arg value="HEAD"/>
+        </exec>
+        <echo message="${commit}" file="${project.basedir}/revision"/>
+
+        <filesync excludeFile=".deployignore"
+                  sourcedir="${project.basedir}/"
+                  options="-lurpKz"
+                  destinationdir="${project.basedir}/dist/"/>
+    </target>
+
+    <target name="execute-deploy">
+        <exec executable="${capistrano.bin}"
+              dir="${project.basedir}/dist"
+              checkreturn="true"
+              passthru="true">
+            <arg value="${env}"/>
+            <arg value="deploy"/>
+        </exec>
+    </target>
+    <target name="symlinks" description="generate symlinks">
+        <!--
+        <if>
+            <equals arg1="${env}" arg2="production"/>
+            <then>
+                <symlink target="/data/web/prod/htdocs/dbsecure-objects/dbsecure-generateur/dbsecure" overwrite="true" link="src/DbSecure/dbsecure"/>
+                <symlink target="/data/web/prod/htdocs/dbsecure-objects/dbsecure-generateur/dbsecure_config" overwrite="true" link="src/DbSecure/dbsecure_config"/>
+            </then>
+            <elseif>
+                <equals arg1="${env}" arg2="staging"/>
+                <then>
+                    <symlink target="/data/web/preprod/htdocs/dbsecure-objects/dbsecure-generateur/dbsecure" overwrite="true" link="src/DbSecure/dbsecure"/>
+                    <symlink target="/data/web/preprod/htdocs/dbsecure-objects/dbsecure-generateur/dbsecure_config" overwrite="true" link="src/DbSecure/dbsecure_config"/>
+                    <symlink target="preprod.jdc.deboeck.com.config.php" overwrite="true" link="config/preprod-jdc.deboeck.com.config.php"/>
+                </then>
+            </elseif>
+        </if>
+        -->
+    </target>
+
+    <target name="db-migration" description="Database Migrations">
+        <exec command="${phinx.bin} migrate --configuration ${build.dir}/install/phinx.yml --environment ${db.env}"
+              dir="${build.dir}"
+              checkreturn="true"
+              passthru="true"
+                />
+    </target>
+
+    <target name="cleanup">
+        <delete file="Capfile" failonerror="false"/>
+        <delete file="REVISION" failonerror="false"/>
+        <delete file="revision" failonerror="false"/>
+        <delete file="build.xml" failonerror="false"/>
+    </target>
+
+    <!-- First level targets -->
+    <target name="prepare" description="Configure l'application" depends="composer, prepare-build-dirs"/>
+
+    <target name="test" description="Test l'application" depends="lint, phpunit"/>
+
+    <!--<target name="metric" description="Analyse le code statiquement" depends="pdepend, phpmd, phpcpd, phpcs, phpcs-ci, phpcb, phploc" />-->
+    <target name="metric" description="Analyse le code statiquement" depends="phpcs, phpcs-ci"/>
+
+    <target name="doc" description="Génère la documentation du code" depends="phpdoc"/>
+
+    <target name="deploy" description="Déploie l'application sur l'environnment donné"
+            depends="prepare-deploy, execute-deploy"/>
+
+    <target name="init" description="Initialise l'application sur le serveur applicatif" depends="infos, symlinks, cleanup"/>
+
+</project>

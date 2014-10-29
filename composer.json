@@ -1,0 +1,26 @@
+{
+    "name": "dbdig/phpDebugBar",
+    "type": "project",
+    "description": "test dev",
+    "keywords": ["application", "debugBar"],
+    "homepage": "",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "WILVERS Patrice",
+            "email": "patrice@deboeck",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "patrice@deboeck.com"
+    },
+    "require": {
+        "maximebf/debugbar": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhpDebugBar": "src"
+        }
+    }
+}
