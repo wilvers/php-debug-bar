@@ -7,7 +7,7 @@
  * Time: 12:29
  */
 
-namespace DebugBar;
+namespace PhpDebugBar\DataCollector;
 
 class GenericCollector extends \DebugBar\DataCollector\DataCollector implements \DebugBar\DataCollector\Renderable {
 

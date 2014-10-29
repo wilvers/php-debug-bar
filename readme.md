@@ -1,3 +1,5 @@
+#http://phpdebugbar.com/
+
 # Intervenants
 * Cédric Bernier <cedric.bernier@deboeck.com> : Développeur
 * Marc Hendrix <marc.hendrix@deboeck.com> : Responsable produit
