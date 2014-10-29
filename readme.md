@@ -25,7 +25,6 @@ Les fichiers au format .md (format utilisé dans gitlab nativement) servent de b
 
 PS : outil : MarkdownPad2 par exemple
 
-
 ## Déployer
 
 * Préparation
