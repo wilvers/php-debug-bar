@@ -8,6 +8,12 @@
 
 namespace PhpDebugBar;
 use DebugBar\DebugBar;
+use DebugBar\DataCollector\PhpInfoCollector;
+use DebugBar\DataCollector\MessagesCollector;
+use DebugBar\DataCollector\TimeDataCollector;
+use DebugBar\DataCollector\RequestDataCollector;
+use DebugBar\DataCollector\MemoryCollector;
+use DebugBar\DataCollector\ExceptionsCollector;
 
 class PhpDebugBar extends  DebugBar{
     public function __construct()
