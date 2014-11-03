@@ -1,13 +1,13 @@
 # Utilisation
-## instance de la debugbar (bar vide)  
-      $debugbar = new StandardDebugBar();
+## Instance de la debugbar (bar vide)  
+    $debugbar = new StandardDebugBar();
      
-## bar standard (contient déja des collector)
-     $debugbar = new DebugBar();
+## Bar standard (contient déja différents collector)
+    $debugbar = new DebugBar();
 
-## création de l'id de request (ici c'est l'id de session)
+## Création de l'id de request (ici c'est l'id de session)
     $debugbar->setRequestIdGenerator(new \DebugBar\RequestSessionId());
-## création d'un file storage
+## Création d'un file storage
     $debugbar->setStorage(new \DebugBar\Storage\FileStorage('/logs/test_dev/'));
 
 ## Collector user
@@ -27,7 +27,7 @@
     );
     $debugbar->getCollector('Users')->addUser($a);
 
-## collector time
+## Collector time
     $debugbar['time']->startMeasure('longop', '1function render()');
     usleep(500000);
 
@@ -40,13 +40,15 @@
     //on stop le long timer 
     $debugbar['time']->stopMeasure('longop');
 
-## collector message
+## Collector message
     $debugbar["messages"]->addMessage(date("Y/m/d") . ' : msg');
 
-## collector exeception
+## Collector exeception
     $debugbar['exceptions']->addException(new Exception('my exception', 1236554));
 
-## peut etre utilisé à la place du collector config
+## Collector config
+
+## Collector generic
     $generic1         = array('part1' => 'debug part1', 'part2' => 'debug part2', 'part3' => 'debug part3');
     $debugbar->addCollector(new \PhpDebugBar\GenericCollector('debug1'));
     $debugbar->getCollector('debug1')->addMessage($generic1);
@@ -56,10 +58,9 @@
     $debugbar->getCollector('debug2')->addMessage($generic2);
 
 
-## récup du js
+## Compilation du js
     $debugbarRenderer = $debugbar->getJavascriptRenderer();
 
-## à afficher avant la balise de fin </body> ou assigner à la vue, ...
+## Render du js et du htm avant la balise de fin </body> ou assigner à la vue, ...
     echo $debugbarRenderer->renderHead();
     echo $debugbarRenderer->render();
-     
