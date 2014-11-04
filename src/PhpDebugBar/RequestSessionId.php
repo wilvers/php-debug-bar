@@ -7,7 +7,7 @@ namespace PhpDebugBar;
  *
  * @author pwilv
  */
-class RequestSessionId implements RequestIdGeneratorInterface {
+class RequestSessionId implements \DebugBar\RequestIdGeneratorInterface {
 
     //put your code here
     public function generate() {

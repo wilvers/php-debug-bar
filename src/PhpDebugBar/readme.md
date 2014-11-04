@@ -1,17 +1,21 @@
 # Utilisation
 ## Instance de la debugbar (bar vide)  
-    $debugbar = new StandardDebugBar();
+    $debugbar = new \DebugBar\StandardDebugBar();
      
 ## Bar standard (contient déja différents collector)
-    $debugbar = new DebugBar();
+    $debugbar = new \DebugBar\DebugBar();
+
+## Bar personalisée (contient déja différents collector)
+    $debugbar = new \PhpDebugBar\PhpDebugBar();
 
 ## Création de l'id de request (ici c'est l'id de session)
-    $debugbar->setRequestIdGenerator(new \DebugBar\RequestSessionId());
+    $debugbar->setRequestIdGenerator(new \PhpDebugBar\RequestSessionId());
+
 ## Création d'un file storage
     $debugbar->setStorage(new \DebugBar\Storage\FileStorage('/logs/test_dev/'));
 
 ## Collector user
-    $debugbar->addCollector(new \PhpDebugBar\UserCollector());
+    $debugbar->addCollector(new \PhpDebugBar\DataCollector\UserCollector());
 
     $a = array(
       "id" => 256,
@@ -50,11 +54,11 @@
 
 ## Collector generic
     $generic1         = array('part1' => 'debug part1', 'part2' => 'debug part2', 'part3' => 'debug part3');
-    $debugbar->addCollector(new \PhpDebugBar\GenericCollector('debug1'));
+    $debugbar->addCollector(new \PhpDebugBar\DataCollector\GenericCollector('debug1'));
     $debugbar->getCollector('debug1')->addMessage($generic1);
 
     $generic2         = array('part1' => 'debug part1', 'part2' => 'debug part2', 'part3' => 'debug part3');
-    $debugbar->addCollector(new \PhpDebugBar\GenericCollector('debug2'));
+    $debugbar->addCollector(new \PhpDebugBar\DataCollector\GenericCollector('debug2'));
     $debugbar->getCollector('debug2')->addMessage($generic2);
 
 
