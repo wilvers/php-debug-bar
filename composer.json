@@ -1,9 +1,9 @@
 {
-    "name": "patrice.wilvers/phpDebugBar",
+    "name": "dbdig/php-debug-bar",
     "type": "project",
     "description": "test dev",
     "keywords": ["application", "debugBar"],
-    "homepage": "http://repository.deboeck.com/patrice.wilvers/php-debug-bar",
+    "homepage": "http://repository.deboeck.com/dbdig/php-debug-bar",
     "license": "proprietary",
     "authors": [
         {
