@@ -61,14 +61,15 @@ class PhpDebugBar extends  DebugBar{
      * @return bool
      */
     public function mayBeDisplayed(){
-        if(isset($this->params['render']))
-            if($this->params['render']===true){
-                return true;
-            }
+//        if(isset($this->params['render']))
+//            if($this->params['render']===true){
+//                return true;
+//            }
+
         if(isset($this->params['regExIp'])){
             $ip = $_SERVER['REMOTE_ADDR'];
             if(preg_match($this->params['regExIp'],$ip)){
-                return true;
+                return true && $this->params['render'];
             }
         }
 
