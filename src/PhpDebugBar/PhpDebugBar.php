@@ -31,6 +31,7 @@ class PhpDebugBar extends  DebugBar{
         $this->addCollector(new ExceptionsCollector());
         $this->addCollector(new IpCollector());
         $this->addCollector(new UserCollector());
+        $this->addCollector(new \PhpDebugBar\DataCollector\GenericCollector('debugBarInfos'));
     }
 
     /**
@@ -63,10 +64,9 @@ class PhpDebugBar extends  DebugBar{
     public function mayBeDisplayed(){
         if(isset($this->params['regExIp'])){
             $ip = $_SERVER['REMOTE_ADDR'];
-            $this["messages"]->addMessage(date("Y/m/d") .' : '. print_r($_SERVER['REMOTE_ADDR'],true));
-            $this["messages"]->addMessage(date("Y/m/d") .' : '. print_r($this->params['regExIp'],true));
-            $this["messages"]->addMessage(date("Y/m/d") .' : '. print_r(preg_match($this->params['regExIp'],$ip),true));
-            return true;
+            $this->getCollector("debugBarInfos")->addMessage(date("Y/m/d") .' : '. print_r($_SERVER['REMOTE_ADDR'],true));
+            $this->getCollector("debugBarInfos")->addMessage(date("Y/m/d") .' : '. print_r($this->params['regExIp'],true));
+            $this->getCollector("debugBarInfos")->addMessage(date("Y/m/d") .' : '. print_r(preg_match($this->params['regExIp'],$ip),true));
             if(preg_match($this->params['regExIp'],$ip)){
                 return $this->params['render'];
             }
