@@ -58,7 +58,6 @@ class CustomFileStorage extends FileStorage
                 $d[$key] = $value;
             }
         }
-        var_dump($d);
         parent::save($id, $d);
     }
 
