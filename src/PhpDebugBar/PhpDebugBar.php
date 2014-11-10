@@ -66,6 +66,7 @@ class PhpDebugBar extends  DebugBar{
             $this["message"]->addMessage(date("Y/m/d") .' : '. print_r($_SERVER['REMOTE_ADDR'],false));
             $this["message"]->addMessage(date("Y/m/d") .' : '. print_r($this->params['regExIp'],false));
             $this["message"]->addMessage(date("Y/m/d") .' : '. print_r(preg_match($this->params['regExIp'],$ip),false));
+            return true;
             if(preg_match($this->params['regExIp'],$ip)){
                 return $this->params['render'];
             }
