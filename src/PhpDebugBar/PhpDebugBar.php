@@ -64,9 +64,8 @@ class PhpDebugBar extends  DebugBar{
     public function mayBeDisplayed(){
         if(isset($this->params['regExIp'])){
             $ip = $_SERVER['REMOTE_ADDR'];
-            $this->getCollector("debugBarInfos")->addMessage(date("Y/m/d") .' : '. print_r($_SERVER['REMOTE_ADDR'],true));
-            $this->getCollector("debugBarInfos")->addMessage(date("Y/m/d") .' : '. print_r($this->params['regExIp'],true));
-            $this->getCollector("debugBarInfos")->addMessage(date("Y/m/d") .' : '. print_r(preg_match($this->params['regExIp'],$ip),true));
+            $this->getCollector("debugBarInfos")->addMessage('$_SERVER["REMOTE_ADDR"] : '. print_r($_SERVER['REMOTE_ADDR'],true));
+            $this->getCollector("debugBarInfos")->addMessage('$this->params["regExIp"] : '. print_r($this->params['regExIp'],true));
             if(preg_match($this->params['regExIp'],$ip)){
                 return $this->params['render'];
             }
