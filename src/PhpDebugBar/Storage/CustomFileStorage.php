@@ -52,13 +52,13 @@ class CustomFileStorage extends FileStorage
      */
     public function save($id, $data)
     {
-        var_dump($data);
         $d=array();
         foreach($data as $key=>$value){
             if(in_array($key,$this->collectorToSave)){
                 $d[$key] = $value;
             }
         }
+        var_dump($d);
         parent::save($id, $d);
     }
 
