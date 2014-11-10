@@ -17,22 +17,22 @@ use DebugBar\Storage\FileStorage;
 class CustomFileStorage extends FileStorage
 {
     //array with collector to save
-    protected $collectorToSave = array();
+    protected $collectorsToSave = array();
 
     /**
      * getter
      * @return array
      */
-    public function getCollectorToSave(){
-        return $this->collectorToSave;
+    public function getCollectorsToSave(){
+        return $this->collectorsToSave;
     }
 
     /**
      * setter
      * @param array $collectorToSave
      */
-    public function setCollectorToSave($collectorToSave){
-        $this->collectorToSave = $collectorToSave;
+    public function setCollectorsToSave($collectorsToSave){
+        $this->collectorsToSave = $collectorsToSave;
         return $this;
     }
 
@@ -41,7 +41,7 @@ class CustomFileStorage extends FileStorage
      * @param array $collectorToSave
      */
     public function addCollectorToSave($collectorToSave){
-        $this->collectorToSave[] = $collectorToSave;
+        $this->collectorsToSave[] = $collectorToSave;
         return $this;
     }
 
@@ -54,11 +54,10 @@ class CustomFileStorage extends FileStorage
     {
         $d=array();
         foreach($data as $key=>$value){
-            if(in_array($key,$this->collectorToSave)){
+            if(in_array($key,$this->collectorsToSave)){
                 $d[$key] = $value;
             }
         }
-        var_dump($d);
         parent::save($id, $d);
     }
 
