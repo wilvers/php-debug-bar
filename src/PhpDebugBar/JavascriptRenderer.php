@@ -31,6 +31,8 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
     public function renderHead()
     {
         list($cssFiles, $jsFiles) = $this->getAssets(null, self::RELATIVE_URL);
+        return array("css"=>$cssFiles,"js"=>$jsFiles);
+
         $html = '';
 
         foreach ($cssFiles as $file) {
@@ -73,6 +75,8 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
 
         $suffix = !$initialize ? '(ajax)' : null;
         $js .= $this->getAddDatasetCode($this->debugBar->getCurrentRequestId(), $this->debugBar->getData(), $suffix);
+
+        return "\n$js\n";
 
         return "<script type=\"text/javascript\">\n$js\n</script>\n";
     }
