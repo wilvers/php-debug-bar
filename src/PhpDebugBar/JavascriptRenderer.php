@@ -78,7 +78,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
 
         return "\n$js\n";
 
-        return "<script type=\"text/javascript\">\n$js\n</script>\n";
+        //return "<script type=\"text/javascript\">\n$js\n</script>\n";
     }
 
 }
