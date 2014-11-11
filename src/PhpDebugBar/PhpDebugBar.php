@@ -72,4 +72,19 @@ class PhpDebugBar extends  DebugBar{
         }
         return false;
     }
+
+    /**
+     * Returns a JavascriptRenderer for this instance
+     *
+     * @param string $baseUrl
+     * @param string $basePathng
+     * @return JavascriptRenderer
+     */
+    public function getCustomJavascriptRenderer($baseUrl = null, $basePath = null)
+    {
+        if ($this->jsRenderer === null) {
+            $this->jsRenderer = new \phpDebugBar\JavascriptRenderer($this, $baseUrl, $basePath);
+        }
+        return $this->jsRenderer;
+    }
 } 
