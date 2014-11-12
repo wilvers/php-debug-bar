@@ -81,4 +81,23 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         //return "<script type=\"text/javascript\">\n$js\n</script>\n";
     }
 
+    public function getJsVendors(){
+        return $this->jsVendors();
+    }
+    public function setJsVendors($array=array()){
+        $this->jsVendors=$array;
+        return $this;
+    }
+    public function removeJsVendors($js){
+        for($i=0; $i<count($this->jsVendors); $i++){
+            if($js == $this->jsVendors[$i])
+                unset($this->jsVendors[$i]);
+        }
+        return $this;
+    }
+    public function addJsVendors($js){
+        if(!in_array($js,$this->jsVendors)){
+            $this->jsVendors[]=$js;
+        }
+    }
 }
