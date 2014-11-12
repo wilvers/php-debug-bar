@@ -81,13 +81,29 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         //return "<script type=\"text/javascript\">\n$js\n</script>\n";
     }
 
+    /**
+     * retourne l'array avec les js inclus des vendors
+     * @return mixed
+     */
     public function getJsVendors(){
         return $this->jsVendors();
     }
+
+    /**
+     * remplace l'array js des vendors par celui passé en paramètre
+     * @param array $array
+     * @return $this
+     */
     public function setJsVendors($array=array()){
         $this->jsVendors=$array;
         return $this;
     }
+
+    /**
+     * retire des vendors le js passé en paramètre
+     * @param $js
+     * @return $this
+     */
     public function removeJsVendors($js){
         for($i=0; $i<count($this->jsVendors); $i++){
             if($js == $this->jsVendors[$i])
@@ -95,9 +111,16 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         }
         return $this;
     }
+
+    /**
+     * ajoutte aux vendors le js passé en paramètre
+     * @param $js
+     * @return $this
+     */
     public function addJsVendors($js){
         if(!in_array($js,$this->jsVendors)){
             $this->jsVendors[]=$js;
         }
+        return $this;
     }
 }
