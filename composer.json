@@ -1,19 +1,19 @@
 {
-    "name": "dbdig/php-debug-bar",
+    "name": "leminette/php-debug-bar",
     "type": "project",
-    "description": "test dev",
+    "description": "Personalisation de la debugbar de maximebf/debugbar ",
     "keywords": ["application", "debugBar"],
-    "homepage": "http://repository.deboeck.com/dbdig/php-debug-bar",
-    "license": "proprietary",
+    "homepage": "https://github.com/leminettte/php-debug-bar",
+    "license": "MIT",
     "authors": [
         {
             "name": "WILVERS Patrice",
-            "email": "patrice.wilvers@deboeck.com",
+            "email": "leminette@hotmail.com",
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "patrice.wilvers@deboeck.com"
+        "email": "leminette@hotmail.com"
     },
     "require": {
         "maximebf/debugbar": "1.*"
