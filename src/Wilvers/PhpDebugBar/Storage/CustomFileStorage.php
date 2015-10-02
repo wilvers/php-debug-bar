@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the DebugBar package.
  *
@@ -8,14 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpDebugBar\Storage;
+namespace Wilvers\PhpDebugBar\Storage;
+
 use DebugBar\Storage\FileStorage;
 
 /**
  * Stores collected data into files
  */
-class CustomFileStorage extends FileStorage
-{
+class CustomFileStorage extends FileStorage {
+
     //array with collector to save
     protected $collectorsToSave = array();
 
@@ -23,7 +25,7 @@ class CustomFileStorage extends FileStorage
      * getter
      * @return array
      */
-    public function getCollectorsToSave(){
+    public function getCollectorsToSave() {
         return $this->collectorsToSave;
     }
 
@@ -31,7 +33,7 @@ class CustomFileStorage extends FileStorage
      * setter
      * @param array $collectorToSave
      */
-    public function setCollectorsToSave($collectorsToSave){
+    public function setCollectorsToSave($collectorsToSave) {
         $this->collectorsToSave = $collectorsToSave;
         return $this;
     }
@@ -40,7 +42,7 @@ class CustomFileStorage extends FileStorage
      * ajoute le nom du collector à sauver
      * @param array $collectorToSave
      */
-    public function addCollectorToSave($collectorToSave){
+    public function addCollectorToSave($collectorToSave) {
         $this->collectorsToSave[] = $collectorToSave;
         return $this;
     }
@@ -50,11 +52,10 @@ class CustomFileStorage extends FileStorage
      * @param $id
      * @param $data
      */
-    public function save($id, $data)
-    {
-        $d=array();
-        foreach($data as $key=>$value){
-            if(in_array($key,$this->collectorsToSave)){
+    public function save($id, $data) {
+        $d = array();
+        foreach ($data as $key => $value) {
+            if (in_array($key, $this->collectorsToSave)) {
                 $d[$key] = $value;
             }
         }

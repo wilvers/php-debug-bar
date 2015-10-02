@@ -7,44 +7,51 @@
  * Time: 12:29
  */
 
-namespace PhpDebugBar\DataCollector;
+namespace Wilvers\PhpDebugBar\DataCollector;
 
-class GenericCollector extends \DebugBar\DataCollector\DataCollector implements \DebugBar\DataCollector\Renderable {
+class UserCollector extends \DebugBar\DataCollector\DataCollector implements \DebugBar\DataCollector\Renderable {
 
     protected $name;
-    protected $messages = array();
+    protected $user;
 
-    public function __construct($name) {
+    public function __construct($name = 'Users') {
         $this->name = $name;
     }
 
-    function getName() {
+    /**
+     * @param string $name
+     */
+    public function getName() {
         return $this->name;
     }
 
-    function getMessages() {
-        return $this->messages;
+    /**
+     * @return mixed
+     */
+    public function getUser() {
+        return $this->user;
     }
 
-    function setName($name) {
-        $this->name = $name;
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user) {
+        $this->user = $user;
         return $this;
     }
 
-    function setMessages($messages) {
-        $this->messages = $messages;
+    /**
+     * @param mixed $user
+     */
+    public function addUser($user) {
+        $this->user[] = $this->stringify($user);
+        //$this->user[] = $this->getDataFormatter()->formatVar($user);
         return $this;
     }
 
-    function addMessage($message) {
-        //$this->messages[] = $this->stringify($message);
-        $this->messages[] = $this->getDataFormatter()->formatVar($message);
-        return $this;
-    }
-
-    public function stringify($message) {
+    public function stringify($user) {
         $s = "";
-        foreach ($message as $property => $value) {
+        foreach ($user as $property => $value) {
             $s.='' . $property . ' : ' . $value . "\n";
         }
         return $s;
@@ -53,10 +60,10 @@ class GenericCollector extends \DebugBar\DataCollector\DataCollector implements 
     /*     * **************************************** */
 
     public function collect() {
-        $msg = $this->getMessages();
+        $users = $this->getUser();
         return array(
-            'count' => count($msg),
-            'messages' => $msg
+            'count' => count($users),
+            'messages' => $users
         );
     }
 

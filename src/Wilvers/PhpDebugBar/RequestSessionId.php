@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpDebugBar;
+namespace Wilvers\PhpDebugBar;
 
 /**
  * Description of RequestSessionId

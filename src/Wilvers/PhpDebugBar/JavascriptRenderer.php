@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the DebugBar package.
  *
@@ -8,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PhpDebugBar;
+namespace Wilvers\PhpDebugBar;
 
 use DebugBar\DataCollector\Renderable;
 use DebugBar\DataCollector\AssetProvider;
@@ -18,8 +19,7 @@ use DebugBar\DataCollector\AssetProvider;
  *
  * Generates all the needed initialization code of controls
  */
-class JavascriptRenderer extends \DebugBar\JavascriptRenderer
-{
+class JavascriptRenderer extends \DebugBar\JavascriptRenderer {
 
     /**
      * Renders the html to include needed assets
@@ -28,10 +28,9 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      *
      * @return string
      */
-    public function renderHead()
-    {
+    public function renderHead() {
         list($cssFiles, $jsFiles) = $this->getAssets(null, self::RELATIVE_URL);
-        return array("css"=>$cssFiles,"js"=>$jsFiles);
+        return array("css" => $cssFiles, "js" => $jsFiles);
 
         $html = '';
 
@@ -50,7 +49,6 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
         return $html;
     }
 
-
     /**
      * Returns the code needed to display the debug bar
      *
@@ -59,8 +57,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      * @param boolean $initialize Whether to render the de bug bar initialization code
      * @return string
      */
-    public function render($initialize = true, $renderStackedData = true)
-    {
+    public function render($initialize = true, $renderStackedData = true) {
         $js = '';
 
         if ($initialize) {
@@ -85,7 +82,7 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      * retourne l'array avec les js inclus des vendors
      * @return mixed
      */
-    public function getJsVendors(){
+    public function getJsVendors() {
         return $this->jsVendors();
     }
 
@@ -94,8 +91,8 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      * @param array $array
      * @return $this
      */
-    public function setJsVendors($array=array()){
-        $this->jsVendors=$array;
+    public function setJsVendors($array = array()) {
+        $this->jsVendors = $array;
         return $this;
     }
 
@@ -104,9 +101,9 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      * @param $js
      * @return $this
      */
-    public function removeJsVendors($js){
-        for($i=0; $i<count($this->jsVendors); $i++){
-            if($js == $this->jsVendors[$i])
+    public function removeJsVendors($js) {
+        for ($i = 0; $i < count($this->jsVendors); $i++) {
+            if ($js == $this->jsVendors[$i])
                 unset($this->jsVendors[$i]);
         }
         return $this;
@@ -117,10 +114,11 @@ class JavascriptRenderer extends \DebugBar\JavascriptRenderer
      * @param $js
      * @return $this
      */
-    public function addJsVendors($js){
-        if(!in_array($js,$this->jsVendors)){
-            $this->jsVendors[]=$js;
+    public function addJsVendors($js) {
+        if (!in_array($js, $this->jsVendors)) {
+            $this->jsVendors[] = $js;
         }
         return $this;
     }
+
 }
