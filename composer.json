@@ -1,9 +1,9 @@
 {
-    "name": "Wilvers/php-debug-bar",
+    "name": "wilvers/php-debug-bar",
     "type": "project",
     "description": "Personalisation de la debugbar de maximebf/debugbar ",
     "keywords": ["application", "debugBar"],
-    "homepage": "https://github.com/Wilvers/php-debug-bar",
+    "homepage": "https://github.com/wilvers/php-debug-bar",
     "license": "MIT",
     "authors": [
         {
