@@ -82,7 +82,7 @@ class PhpDebugBar extends DebugBar {
      */
     public function getCustomJavascriptRenderer($baseUrl = null, $basePath = null) {
         if ($this->jsRenderer === null) {
-            $this->jsRenderer = new \PhpDebugBar\JavascriptRenderer($this, $baseUrl, $basePath);
+            $this->jsRenderer = new \Wilvers\PhpDebugBar\JavascriptRenderer($this, $baseUrl, $basePath);
         }
         return $this->jsRenderer;
     }
