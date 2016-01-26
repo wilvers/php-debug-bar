@@ -34,6 +34,7 @@ class PhpDebugBar extends DebugBar {
         $this->addCollector(new IpCollector());
         $this->addCollector(new UserCollector());
         $this->addCollector(new GenericCollector('debugBarInfos'));
+        $this->addCollector(new GenericCollector('dump'));
     }
 
     /**
